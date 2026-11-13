@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="RANKFORGE — Player Rankings &amp; Match Arena. High-performance esports operations console, player matchmaking, and DSA algorithm lab.">
+  <meta name="author" content="Mokshith Miryala">
+  <title>RANKFORGE — Player Rankings &amp; Match Arena</title>
+
+  <!-- Google Fonts: Space Grotesk (Headings), Inter (Body), JetBrains Mono (Telemetry) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&family=Space+Grotesk:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Core Design Tokens and Application CSS -->
+  <link rel="stylesheet" href="css/design-tokens.css">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+
+  <div class="app-layout">
+
+    <!-- Mobile Drawer Backdrop Overlay -->
+    <div id="nav-backdrop" class="nav-backdrop" aria-hidden="true"></div>
+
+    <!-- App Sidebar Navigation -->
+    <aside id="app-sidebar" class="app-sidebar" aria-label="Main Navigation">
+      <div class="sidebar-header">
+        <div class="brand-icon" aria-hidden="true">⚔️</div>
+        <div class="brand-info">
+          <span class="brand-title">RANKFORGE</span>
+          <span class="brand-subtitle">Player Rankings &amp; Match Arena</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav" aria-label="Primary Views">
+        <span class="nav-section-title">Operations Console</span>
+
+        <a href="#overview" class="nav-item is-active" id="nav-overview" data-view="overview" aria-current="page">
+          <span class="nav-item__icon" aria-hidden="true">📊</span>
+          <span>Arena Overview</span>
+          <span class="nav-item__badge">Stage 1</span>
+        </a>
+
+        <a href="#registry" class="nav-item" id="nav-registry" data-view="registry">
+          <span class="nav-item__icon" aria-hidden="true">👥</span>
+          <span>Player Registry</span>
+          <span class="nav-item__badge">Stage 2</span>
+        </a>
+
+        <a href="#leaderboard" class="nav-item" id="nav-leaderboard" data-view="leaderboard">
+          <span class="nav-item__icon" aria-hidden="true">🏆</span>
+          <span>Leaderboard</span>
+          <span class="nav-item__badge">Stage 2</span>
+        </a>
+
+        <span class="nav-section-title">Esports &amp; Matchmaking</span>
+
+        <a href="#arena" class="nav-item" id="nav-arena" data-view="arena">
+          <span class="nav-item__icon" aria-hidden="true">🎮</span>
+          <span>Match Arena</span>
+          <span class="nav-item__badge">Stage 3</span>
+        </a>
+
+        <a href="#history" class="nav-item" id="nav-history" data-view="history">
+          <span class="nav-item__icon" aria-hidden="true">📜</span>
+          <span>Match History</span>
+          <span class="nav-item__badge">Stage 4</span>
+        </a>
+
+        <span class="nav-section-title">Algorithms &amp; Education</span>
+
+        <a href="#dsa-lab" class="nav-item" id="nav-dsa-lab" data-view="dsa-lab">
+          <span class="nav-item__icon" aria-hidden="true">🔬</span>
+          <span>DSA Lab</span>
+          <span class="nav-item__badge">Stage 4</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="system-status">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Stage 6 DB &amp; Combat Live</span>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--color-text-muted);">
+          SHA: 9997165 (Pinned)
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Viewport Area -->
+    <div class="app-main">
+
+      <!-- Top Application Header Bar -->
+      <header class="app-header" role="banner">
+        <div class="header-left">
+          <button type="button" id="btn-mobile-menu" class="btn-mobile-menu" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="app-sidebar">
+            <span aria-hidden="true">☰</span>
+          </button>
+
+          <nav class="breadcrumb-trail" aria-label="Breadcrumb">
+            <span class="breadcrumb-root">RANKFORGE</span>
+            <span class="breadcrumb-sep" aria-hidden="true">/</span>
+            <span id="breadcrumb-current" class="breadcrumb-current">Arena Overview</span>
+          </nav>
+        </div>
+
+        <div class="header-right">
+          <span class="badge badge--lime">Stage 1: Foundation</span>
+          <span class="badge badge--cyan">Stage 2: Active</span>
+          <span class="badge badge--magenta">Stage 3: Live Arena</span>
+          <span class="badge badge--lime">Stage 4: LIFO &amp; DSA</span>
+          <span class="badge badge--cyan">Stage 6: Persistent DB &amp; Combat Live</span>
+          <div id="header-clock" class="badge badge--neutral font-mono" title="System Local Time">--:--:--</div>
+        </div>
+      </header>
+
+      <!-- View Containers -->
+      <main id="main-content" class="content-container">
+
+        <!-- ================================================================
+             VIEW 1: ARENA OVERVIEW (Dashboard & Academic Origin)
+             ================================================================ -->
+        <section id="view-overview" class="view-panel is-active" aria-labelledby="overview-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--lime">Executive Mission Dashboard</span>
+              <span class="badge badge--neutral">Core DSA Architecture</span>
+            </div>
+            <h1 id="overview-title" class="page-title">RANKFORGE — Player Rankings &amp; Match Arena</h1>
+            <p class="page-description">
+              An interactive, browser-based esports operations console transforming an authentic Java Data Structures &amp; Algorithms academic project into a responsive portfolio web application.
+            </p>
+          </header>
+
+          <!-- Stage 1 Notice Banner -->
+          <div class="stage-notice" role="region" aria-label="Stage 1 Information">
+            <span class="stage-notice__icon" aria-hidden="true">🛡️</span>
+            <div>
+              <h2 class="stage-notice__title">Stage 1 Foundation &amp; Source Preservation Complete</h2>
+              <p class="stage-notice__desc">
+                All 8 original Java repository files from pinned commit <code>9997165</code> are preserved in <code>original-source/</code> with 100% cryptographic integrity. The interactive application shell is active. Gameplay, CRUD, and QuickSort ranking will activate in subsequent stages.
+              </p>
+            </div>
+          </div>
+
+          <!-- KPI Metric Placeholders (Explicitly labeled) -->
+          <div class="card-grid-4">
+            <div class="stat-card" id="kpi-total-players">
+              <div class="stat-card__meta">
+                <span class="stat-card__label">Total Roster</span>
+                <span class="stat-card__icon" aria-hidden="true">👥</span>
+              </div>
+              <div class="stat-card__val">54</div>
+              <div class="stat-card__subtext">Source players.txt Seed</div>
+            </div>
+
+            <div class="stat-card stat-card--magenta" id="kpi-active-lobby">
+              <div class="stat-card__meta">
+                <span class="stat-card__label">Match Lobby</span>
+                <span class="stat-card__icon" aria-hidden="true">⏳</span>
+              </div>
+              <div class="stat-card__val">0</div>
+              <div class="stat-card__subtext">Queue launches in Stage 3</div>
+            </div>
+
+            <div class="stat-card stat-card--cyan" id="kpi-matches-played">
+              <div class="stat-card__meta">
+                <span class="stat-card__label">Matches Logged</span>
+                <span class="stat-card__icon" aria-hidden="true">⚔️</span>
+              </div>
+              <div class="stat-card__val">0</div>
+              <div class="stat-card__subtext">History Stack (Stage 4)</div>
+            </div>
+
+            <div class="stat-card stat-card--amber" id="kpi-top-score">
+              <div class="stat-card__meta">
+                <span class="stat-card__label">High Score</span>
+                <span class="stat-card__icon" aria-hidden="true">👑</span>
+              </div>
+              <div class="stat-card__val">100</div>
+              <div class="stat-card__subtext">Champion: Arjun (Warriors)</div>
+            </div>
+          </div>
+
+          <!-- Architecture & Academic Origin Overview -->
+          <div class="card-grid-3">
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <span aria-hidden="true">📦</span> Original Academic Repository
+                </h3>
+                <span class="badge badge--lime">Preserved</span>
+              </div>
+              <p style="font-size: var(--text-sm); margin-bottom: var(--space-4);">
+                Originally developed as a console-based Java project implementing core data structures for multiplayer gaming.
+              </p>
+              <ul style="font-size: var(--text-xs); color: var(--color-text-secondary); padding-left: 1.25rem; line-height: 1.8;">
+                <li><strong>Repository:</strong> GAME-LEADERBOARD-PLAYER-RANKING-SYSTEM</li>
+                <li><strong>Pinned Commit:</strong> <code>9997165e4524f2e0e4f820b0ea5538c0f5c45401</code></li>
+                <li><strong>Files Preserved:</strong> 8 of 8 (Main, Player, PlayerArray, PlayerList, PlayerQueue, MatchHistoryStack, players.txt, README)</li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <span aria-hidden="true">🎨</span> Distinct Design System
+                </h3>
+                <span class="badge badge--magenta">Twilight Esports</span>
+              </div>
+              <p style="font-size: var(--text-sm); margin-bottom: var(--space-4);">
+                Crafted with a dedicated "Competitive Arcade Arena" visual theme distinctly separated from all other portfolio projects.
+              </p>
+              <ul style="font-size: var(--text-xs); color: var(--color-text-secondary); padding-left: 1.25rem; line-height: 1.8;">
+                <li><strong>Carbon Base:</strong> <code>#0C0F12</code> &amp; <code>#12161A</code></li>
+                <li><strong>Electric Lime (Rank 1):</strong> <code>#B8F34B</code></li>
+                <li><strong>Cyber Magenta (Versus):</strong> <code>#F15BB5</code></li>
+                <li><strong>Neon Cyan (Level):</strong> <code>#00F5D4</code></li>
+              </ul>
+            </article>
+
+            <article class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <span aria-hidden="true">🗺️</span> Five-Stage Roadmap
+                </h3>
+                <span class="badge badge--cyan">Active Phase</span>
+              </div>
+              <p style="font-size: var(--text-sm); margin-bottom: var(--space-4);">
+                Carefully partitioned implementation avoiding premature feature pollution while keeping architecture modular.
+              </p>
+              <ul style="font-size: var(--text-xs); color: var(--color-text-secondary); padding-left: 1.25rem; line-height: 1.8;">
+                <li><strong>Stage 1 (Current):</strong> Source Preservation &amp; Shell</li>
+                <li><strong>Stage 2:</strong> Player Registry &amp; QuickSort Ranking</li>
+                <li><strong>Stage 3:</strong> Matchmaking Queue &amp; Esports Arena</li>
+                <li><strong>Stage 4:</strong> History Stack &amp; DSA Interactive Lab</li>
+                <li><strong>Stage 5:</strong> Master Integration &amp; QA</li>
+              </ul>
+            </article>
+          </div>
+
+          <!-- Quick Navigation Triggers -->
+          <div class="card" style="margin-top: var(--space-4);">
+            <div class="card-header">
+              <h3 class="card-title"><span aria-hidden="true">🚀</span> Explore Application Shell Views</h3>
+              <span class="badge badge--neutral">6 Functional Views</span>
+            </div>
+            <p style="font-size: var(--text-sm); margin-bottom: var(--space-4);">
+              Use the sidebar or the quick shortcuts below to tour the responsive layout shells designed for Stages 2 through 4:
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-3);">
+              <a href="#registry" class="btn btn--secondary" data-quickview="registry">👥 Player Registry</a>
+              <a href="#leaderboard" class="btn btn--secondary" data-quickview="leaderboard">🏆 Ranked Leaderboard</a>
+              <a href="#arena" class="btn btn--secondary" data-quickview="arena">🎮 Match Arena</a>
+              <a href="#history" class="btn btn--secondary" data-quickview="history">📜 Match History</a>
+              <a href="#dsa-lab" class="btn btn--secondary" data-quickview="dsa-lab">🔬 DSA Algorithm Lab</a>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             VIEW 2: PLAYER REGISTRY (Stage 2 Active)
+             ================================================================ -->
+        <section id="view-registry" class="view-panel" aria-labelledby="registry-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--lime">Player Management</span>
+              <span class="badge badge--lime">Stage 2 Live</span>
+            </div>
+            <h1 id="registry-title" class="page-title">Player Registry &amp; Manifest</h1>
+            <p class="page-description">
+              Centralized roster management modeling <code>Player.java</code> and <code>PlayerArray.java</code>. Supports single and team players with multi-strategy searching and live performance telemetry.
+            </p>
+          </header>
+
+          <div class="stage-notice" role="region" aria-label="Stage 2 Registration Notice">
+            <span class="stage-notice__icon" aria-hidden="true">⚡</span>
+            <div>
+              <h2 class="stage-notice__title">Stage 2 Active: Player Registry &amp; Algorithmic Search Engine</h2>
+              <p class="stage-notice__desc">
+                Loaded 53 verified seed records from original <code>players.txt</code> (with 1 malformed row quarantined). Features Linear Search by ID/Name/Team, Binary Search by ID ($O(\log N)$), and Hash-Map Search ($O(1)$) with real-time comparison counters.
+              </p>
+            </div>
+          </div>
+
+          <!-- Registry Control Toolbar -->
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <!-- Row 1: Search Input, Algorithm Selector, and Action Buttons -->
+            <div class="registry-toolbar-top">
+              <div class="registry-search-wrap">
+                <span class="search-input-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="registry-search-input" class="search-input" placeholder="Search by handle, ID, or team..." aria-label="Search players by query">
+                <button type="button" id="btn-clear-search" class="btn-clear-search" style="display: none;" aria-label="Clear search input">&times;</button>
+              </div>
+
+              <div class="registry-alg-wrap">
+                <label for="registry-algorithm-select" class="visually-hidden">Search Algorithm Strategy</label>
+                <select id="registry-algorithm-select" class="select-control font-mono" aria-label="Select search algorithm">
+                  <option value="linear_name">Linear Search (Name) • O(N)</option>
+                  <option value="linear_id">Linear Search (ID) • O(N)</option>
+                  <option value="linear_team">Linear Search (Team) • O(N)</option>
+                  <option value="binary_id">Binary Search (ID) • O(log N)</option>
+                  <option value="hash_id">Hash-Map Search (ID) • O(1)</option>
+                </select>
+              </div>
+
+              <div class="registry-sort-wrap">
+                <label for="registry-sort-select" class="visually-hidden">Sort Roster By</label>
+                <select id="registry-sort-select" class="select-control font-mono" aria-label="Sort roster">
+                  <option value="id_asc">Sort: ID (Ascending)</option>
+                  <option value="id_desc">Sort: ID (Descending)</option>
+                  <option value="score_desc">Sort: Score (High to Low)</option>
+                  <option value="name_asc">Sort: Name (A to Z)</option>
+                  <option value="level_desc">Sort: Level (High to Low)</option>
+                </select>
+              </div>
+
+              <div class="registry-actions-wrap">
+                <button type="button" id="btn-add-player" class="btn btn--primary">
+                  <span aria-hidden="true">➕</span> Register Player
+                </button>
+                <button type="button" id="btn-reset-demo-data" class="btn btn--secondary" title="Reset roster to original 53 seed records">
+                  <span aria-hidden="true">↺</span> Reset Data
+                </button>
+              </div>
+            </div>
+
+            <!-- Row 2: Search Algorithm Performance Telemetry -->
+            <div class="registry-toolbar-telemetry">
+              <div id="search-telemetry-pill" class="telemetry-pill font-mono" aria-live="polite">
+                <span class="telemetry-pill__alg">Linear Search (Name)</span>
+                <span class="telemetry-pill__complexity">O(N)</span>
+                <span class="telemetry-pill__metric"><strong>0</strong> comps</span>
+                <span class="telemetry-pill__metric"><strong>0.01</strong>ms</span>
+                <span class="telemetry-pill__metric"><strong>53</strong> matched</span>
+              </div>
+
+              <div id="registry-player-count" class="badge badge--lime font-mono">53 / 53 Players</div>
+            </div>
+
+            <!-- Row 3: Team Affiliation Filter Pills -->
+            <div class="registry-toolbar-filters">
+              <span class="filter-label">Filter Team:</span>
+              <div class="filter-pill-group" role="group" aria-label="Filter roster by team">
+                <button type="button" class="team-filter-pill is-active" data-team="all">All Teams</button>
+                <button type="button" class="team-filter-pill" data-team="Warriors">⚔️ Warriors</button>
+                <button type="button" class="team-filter-pill" data-team="Knights">🛡️ Knights</button>
+                <button type="button" class="team-filter-pill" data-team="Dragons">🐉 Dragons</button>
+                <button type="button" class="team-filter-pill" data-team="KLH">🏛️ KLH</button>
+                <button type="button" class="team-filter-pill" data-team="NoTeam">👤 Solo</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table Structure -->
+          <div class="table-wrap">
+            <table class="data-table" aria-label="Registered Players Table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 110px;">Player ID</th>
+                  <th scope="col">Player Handle &amp; Tier</th>
+                  <th scope="col" style="width: 150px;">Affiliation</th>
+                  <th scope="col" style="width: 110px;">Level</th>
+                  <th scope="col" style="width: 130px;">Score Rating</th>
+                  <th scope="col" style="width: 140px; text-align: center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="registry-table-body">
+                <!-- Dynamically populated by GamePlayerManager -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             VIEW 3: LEADERBOARD (Stage 2 Active)
+             ================================================================ -->
+        <section id="view-leaderboard" class="view-panel" aria-labelledby="leaderboard-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--lime">Rankings Studio</span>
+              <span class="badge badge--lime">Stage 2 Live</span>
+            </div>
+            <h1 id="leaderboard-title" class="page-title">Ranked Leaderboard</h1>
+            <p class="page-description">
+              Competitive player standings calculated dynamically via descending QuickSort Lomuto partitioning based on <code>PlayerArray.leaderboardQuick()</code>.
+            </p>
+          </header>
+
+          <div class="stage-notice" role="region" aria-label="Stage 2 Ranking Notice">
+            <span class="stage-notice__icon" aria-hidden="true">🏆</span>
+            <div>
+              <h2 class="stage-notice__title">Dynamic QuickSort Ranking Engine Active</h2>
+              <p class="stage-notice__desc">
+                Live rankings computed via Lomuto partitioning with end-element pivot and deterministic tie-breaking (ascending ID). Podium reflects real-time Top-3 standings.
+              </p>
+            </div>
+          </div>
+
+          <!-- Top-3 Podium Layout -->
+          <div class="podium-container" aria-label="Top 3 Leaderboard Podium">
+            <!-- Rank 2: Silver / Cyber Magenta -->
+            <div id="podium-rank-2" class="podium-step podium-step--2">
+              <div class="podium-rank-badge podium-rank-badge--2">#2</div>
+              <div class="podium-player-name">Podium Contender</div>
+              <div class="podium-score">-- PTS</div>
+            </div>
+
+            <!-- Rank 1: Gold / Electric Lime -->
+            <div id="podium-rank-1" class="podium-step podium-step--1">
+              <div class="podium-rank-badge podium-rank-badge--1">👑 #1</div>
+              <div class="podium-player-name">Arena Grandmaster</div>
+              <div class="podium-score">-- PTS</div>
+            </div>
+
+            <!-- Rank 3: Bronze / Neon Cyan -->
+            <div id="podium-rank-3" class="podium-step podium-step--3">
+              <div class="podium-rank-badge podium-rank-badge--3">#3</div>
+              <div class="podium-player-name">Podium Contender</div>
+              <div class="podium-score">-- PTS</div>
+            </div>
+          </div>
+
+          <!-- Leaderboard Toolbar -->
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="leaderboard-toolbar">
+              <div class="leaderboard-search-wrap">
+                <span class="search-input-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="leaderboard-search-input" class="search-input" placeholder="Filter leaderboard by player handle or ID..." aria-label="Filter leaderboard standings">
+              </div>
+
+              <div class="filter-pill-group" role="group" aria-label="Filter leaderboard by team">
+                <button type="button" class="leaderboard-team-pill is-active" data-team="all">All Teams</button>
+                <button type="button" class="leaderboard-team-pill" data-team="Warriors">⚔️ Warriors</button>
+                <button type="button" class="leaderboard-team-pill" data-team="Knights">🛡️ Knights</button>
+                <button type="button" class="leaderboard-team-pill" data-team="Dragons">🐉 Dragons</button>
+                <button type="button" class="leaderboard-team-pill" data-team="KLH">🏛️ KLH</button>
+                <button type="button" class="leaderboard-team-pill" data-team="NoTeam">👤 Solo</button>
+              </div>
+
+              <div id="leaderboard-meta-info" class="leaderboard-meta-tag font-mono">
+                Showing 53 ranked contenders • QuickSort Lomuto Partition
+              </div>
+            </div>
+          </div>
+
+          <!-- Leaderboard Table -->
+          <div class="table-wrap">
+            <table class="data-table" aria-label="Leaderboard Rankings Table">
+              <thead>
+                <tr>
+                  <th scope="col" style="width: 100px;">Rank</th>
+                  <th scope="col">Player Handle &amp; ID</th>
+                  <th scope="col" style="width: 150px;">Affiliation</th>
+                  <th scope="col" style="width: 110px;">Level</th>
+                  <th scope="col" style="width: 140px;">Rating Score</th>
+                  <th scope="col" style="width: 140px;">Tier Status</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-table-body">
+                <!-- Dynamically populated by GameLeaderboardManager -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             VIEW 4: MATCH ARENA (Stage 3 Active)
+             ================================================================ -->
+        <section id="view-arena" class="view-panel" aria-labelledby="arena-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--magenta">Matchmaking &amp; Arena</span>
+              <span class="badge badge--lime">Stage 3 Live</span>
+            </div>
+            <h1 id="arena-title" class="page-title">Match Arena &amp; Lobby Queue</h1>
+            <p class="page-description">
+              Esports battleground supporting Solo 1v1 and Team 2v2 dice-roll match simulations powered by circular <code>PlayerQueue</code> and <code>Main.rollNumber()</code> with atomic score transactions.
+            </p>
+          </header>
+
+          <div class="stage-notice stage-notice--magenta" role="region" aria-label="Stage 3 Arena Notice">
+            <span class="stage-notice__icon" aria-hidden="true">🎮</span>
+            <div>
+              <h2 class="stage-notice__title">Stage 3 Active: Matchmaking Lobby &amp; Dice-Roll Combat Engine</h2>
+              <p class="stage-notice__desc">
+                Circular FIFO queue (Capacity 50) safeguards against array exhaustion. Launch 1v1 or 2v2 matches with animated dice rolls (1–100), sudden death tie-breaking, and atomic +10 score transactions.
+              </p>
+            </div>
+          </div>
+
+          <!-- Section 1: Matchmaking Lobby Management -->
+          <div class="card" style="margin-bottom: var(--space-6);">
+            <div class="card-header">
+              <h3 class="card-title"><span aria-hidden="true">⏳</span> Matchmaking Lobby Queue</h3>
+              <div style="display: flex; gap: var(--space-2); align-items: center;">
+                <span id="arena-queue-count" class="badge badge--lime font-mono">0 / 50 Challengers</span>
+                <span id="arena-matches-count" class="badge badge--cyan font-mono">0 Logged Matches</span>
+              </div>
+            </div>
+
+            <!-- Lobby Action Bar -->
+            <div class="lobby-action-bar">
+              <div class="lobby-select-wrap">
+                <label for="select-lobby-player" class="visually-hidden">Select registered player</label>
+                <select id="select-lobby-player" class="select-control" aria-label="Select player to join queue">
+                  <option value="" disabled selected>Loading registered players...</option>
+                </select>
+              </div>
+
+              <div class="lobby-btns-wrap">
+                <button type="button" id="btn-enqueue-player" class="btn btn--primary">
+                  <span aria-hidden="true">➕</span> Join Lobby
+                </button>
+                <button type="button" id="btn-quick-fill-lobby" class="btn btn--secondary" title="Quickly add 4 unqueued players from registry for instant match testing">
+                  <span aria-hidden="true">⚡</span> Quick Seed 4 Challengers
+                </button>
+                <button type="button" id="btn-clear-lobby" class="btn btn--secondary" title="Clear all waiting players from lobby">
+                  <span aria-hidden="true">↺</span> Clear Lobby
+                </button>
+              </div>
+            </div>
+
+            <!-- Waiting Queue Grid -->
+            <div class="lobby-queue-container">
+              <div class="lobby-queue-header">
+                <span class="filter-label">FIFO Waiting Queue (First In, First Out):</span>
+              </div>
+              <div id="lobby-queue-list" class="lobby-queue-grid">
+                <!-- Dynamically populated by GameArenaManager -->
+              </div>
+            </div>
+
+            <!-- Match Launch Bar -->
+            <div class="lobby-launch-bar">
+              <button type="button" id="btn-start-1v1" class="btn btn--primary btn--launch" disabled>
+                <span aria-hidden="true">⚔️</span> Stage 1v1 Match (Requires 2)
+              </button>
+              <button type="button" id="btn-start-2v2" class="btn btn--secondary btn--launch btn--launch-magenta" disabled>
+                <span aria-hidden="true">👥</span> Stage 2v2 Squad Clash (Requires 4)
+              </button>
+            </div>
+          </div>
+
+          <!-- Section 2: Interactive Matchup Arena -->
+          <div id="arena-battle-area" class="card arena-battle-card">
+            <div class="card-header">
+              <h3 id="arena-match-title" class="card-title">Arena Matchup: Waiting for Challenger Staging</h3>
+              <button type="button" id="btn-reset-matchup" class="btn btn--secondary btn--sm">
+                <span aria-hidden="true">↺</span> Reset Arena
+              </button>
+            </div>
+
+            <!-- Arena Matchup Grid -->
+            <div class="arena-grid">
+              <!-- Side 1: Alpha -->
+              <div id="arena-side-alpha" class="challenger-container">
+                <div class="challenger-box challenger-box--player1">
+                  <span class="badge badge--lime" style="margin-bottom: var(--space-3);">Challenger Alpha</span>
+                  <div style="font-size: 2.5rem; margin-bottom: var(--space-2);">🛡️</div>
+                  <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Queue Front Position</h3>
+                  <p style="font-size: var(--text-xs); color: var(--color-text-muted);">Launch a 1v1 or 2v2 match from the lobby above.</p>
+                </div>
+              </div>
+
+              <!-- VS Section & Trigger -->
+              <div id="arena-vs-section" class="arena-vs-column">
+                <div id="arena-vs-pill" class="vs-pill" aria-label="Versus">VS</div>
+                <button type="button" id="btn-execute-roll" class="btn btn--primary btn--roll" style="display: none;">
+                  🎲 Roll Dice (1–100)
+                </button>
+              </div>
+
+              <!-- Side 2: Omega -->
+              <div id="arena-side-omega" class="challenger-container">
+                <div class="challenger-box challenger-box--player2">
+                  <span class="badge badge--magenta" style="margin-bottom: var(--space-3);">Challenger Omega</span>
+                  <div style="font-size: 2.5rem; margin-bottom: var(--space-2);">⚔️</div>
+                  <h3 style="font-size: var(--text-lg); margin-bottom: var(--space-1);">Queue Contender Position</h3>
+                  <p style="font-size: var(--text-xs); color: var(--color-text-muted);">Launch a 1v1 or 2v2 match from the lobby above.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Victory Celebration Banner -->
+            <div id="arena-result-banner" class="arena-result-banner" style="display: none;" role="region" aria-live="polite">
+              <div class="arena-result-badge-wrap">
+                <span class="badge badge--lime">Match Completed</span>
+                <span class="badge badge--amber">+10 Score Points Awarded</span>
+              </div>
+              <h4 id="arena-result-title" class="arena-result-heading">🏆 Victory Announcement</h4>
+              <p id="arena-result-details" class="arena-result-subtext font-mono">Roll results</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================================================================
+             VIEW 5: MATCH HISTORY (Stage 4 Active)
+             ================================================================ -->
+        <section id="view-history" class="view-panel" aria-labelledby="history-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--cyan">Auditing &amp; LIFO Stack</span>
+              <span class="badge badge--lime">Stage 4 Live</span>
+            </div>
+            <h1 id="history-title" class="page-title">Match History &amp; Undo Stack</h1>
+            <p class="page-description">
+              LIFO audit trail for completed matches tracking winners, rating deltas, and single-step undo operations modeled on <code>MatchHistoryStack.java</code>.
+            </p>
+          </header>
+
+          <div class="stage-notice stage-notice--cyan" role="region" aria-label="Stage 4 History Notice">
+            <span class="stage-notice__icon" aria-hidden="true">📜</span>
+            <div>
+              <h2 class="stage-notice__title">LIFO Match Audit Trail &amp; Atomic Undo Engine Active</h2>
+              <p class="stage-notice__desc">
+                Matches are preserved with immutable player snapshots and recorded in LIFO stack order. Undo operations reverse exactly 10 rating points per winner without double-deduction anomalies, supporting atomic 1v1 and 2v2 rollbacks with transaction journaling.
+              </p>
+            </div>
+          </div>
+
+          <!-- History Action Toolbar -->
+          <div class="history-toolbar">
+            <div class="history-toolbar-left">
+              <input type="text" id="history-search-input" class="form-input font-mono" placeholder="Filter by handle, ID or match..." style="max-width: 260px; padding: 0.45rem 0.75rem;">
+              <div class="filter-pills-group" role="group" aria-label="History Filters">
+                <button type="button" class="history-filter-pill is-active" data-filter="all">All</button>
+                <button type="button" class="history-filter-pill" data-filter="1v1">Solo 1v1</button>
+                <button type="button" class="history-filter-pill" data-filter="2v2">Team 2v2</button>
+                <button type="button" class="history-filter-pill" data-filter="completed">Completed</button>
+                <button type="button" class="history-filter-pill" data-filter="undone">Undone</button>
+              </div>
+            </div>
+            <div class="history-toolbar-right">
+              <div id="history-stack-depth" class="font-mono" style="font-size: var(--text-sm); color: var(--color-text-secondary);">
+                Active Stack Depth: <strong style="color: var(--color-cyan);">0 / 100</strong>
+              </div>
+              <button type="button" id="btn-undo-last-match" class="btn btn--secondary btn--sm font-mono" disabled>
+                ↩️ Undo Last Match
+              </button>
+            </div>
+          </div>
+
+          <!-- History Timeline Container -->
+          <div id="history-timeline-container" class="history-timeline">
+            <!-- Dynamically populated by GameHistoryManager -->
+          </div>
+        </section>
+
+        <!-- ================================================================
+             VIEW 6: DSA LAB (Stage 4 Active)
+             ================================================================ -->
+        <section id="view-dsa-lab" class="view-panel" aria-labelledby="dsa-title">
+          <header class="page-header">
+            <div class="page-header__meta">
+              <span class="badge badge--lime">Educational Laboratory</span>
+              <span class="badge badge--cyan">Stage 4 Live</span>
+            </div>
+            <h1 id="dsa-title" class="page-title">Data Structures &amp; Algorithm Lab</h1>
+            <p class="page-description">
+              Interactive visual studio dissecting all 7 fundamental algorithms and data structures implemented across the Java source code with step-by-step playback.
+            </p>
+          </header>
+
+          <div class="stage-notice" role="region" aria-label="Stage 4 DSA Notice">
+            <span class="stage-notice__icon" aria-hidden="true">🔬</span>
+            <div>
+              <h2 class="stage-notice__title">Interactive Algorithm Demonstrations Active</h2>
+              <p class="stage-notice__desc">
+                Step through QuickSort partition traces, Binary Search interval halving, Hash Table buckets, Circular Queue modulo wrap-around, and LIFO Stack frames on isolated sandbox datasets.
+              </p>
+            </div>
+          </div>
+
+          <!-- Topic Navigation Tabs -->
+          <div class="dsa-topic-tabs" role="tablist" aria-label="DSA Modules">
+            <button type="button" class="dsa-topic-tab is-active" data-topic="array" role="tab">📊 PlayerArray</button>
+            <button type="button" class="dsa-topic-tab" data-topic="list" role="tab">🔗 PlayerList</button>
+            <button type="button" class="dsa-topic-tab" data-topic="queue" role="tab">⏳ PlayerQueue</button>
+            <button type="button" class="dsa-topic-tab" data-topic="stack" role="tab">🥞 MatchHistoryStack</button>
+            <button type="button" class="dsa-topic-tab" data-topic="hash" role="tab">⚡ Hash Map</button>
+            <button type="button" class="dsa-topic-tab" data-topic="search" role="tab">🔍 Search Engine</button>
+            <button type="button" class="dsa-topic-tab" data-topic="quicksort" role="tab">⚡ QuickSort</button>
+          </div>
+
+          <!-- Controls Card -->
+          <div class="dsa-controls-card card">
+            <div class="dsa-controls-top">
+              <div class="dsa-controls-buttons">
+                <button type="button" id="btn-dsa-step-back" class="btn btn--secondary btn--sm">⏮ Step Back</button>
+                <button type="button" id="btn-dsa-play-pause" class="btn btn--primary btn--sm">▶ Play</button>
+                <button type="button" id="btn-dsa-step-forward" class="btn btn--secondary btn--sm">Step Forward ⏭</button>
+                <button type="button" id="btn-dsa-reset" class="btn btn--neutral btn--sm">↺ Reset</button>
+              </div>
+              <div class="dsa-controls-speed">
+                <label for="dsa-speed-select" class="form-label font-mono" style="margin: 0; font-size: 0.72rem; color: var(--color-text-muted);">Speed:</label>
+                <select id="dsa-speed-select" class="form-select form-select--sm font-mono" style="width: auto; padding: 0.25rem 0.6rem;">
+                  <option value="1200">0.5x Slow</option>
+                  <option value="700" selected>1.0x Normal</option>
+                  <option value="350">2.0x Fast</option>
+                </select>
+              </div>
+              <div class="dsa-controls-telemetry">
+                <span id="dsa-complexity-badge" class="badge badge--lime">O(1) Access</span>
+                <span id="dsa-step-counter" class="font-mono" style="font-size: 0.75rem; color: var(--color-text-secondary);">Step 1 of 1</span>
+              </div>
+            </div>
+            <div id="dsa-custom-actions" class="dsa-custom-actions-bar"></div>
+          </div>
+
+          <!-- Visualization Canvas -->
+          <div class="card" style="margin-bottom: var(--space-4);">
+            <div id="dsa-canvas-area" class="dsa-canvas-wrapper"></div>
+          </div>
+
+          <!-- Educational Explanation Log -->
+          <div class="card">
+            <div class="card-header" style="margin-bottom: var(--space-3);">
+              <h3 class="card-title"><span aria-hidden="true">📖</span> Step-by-Step Educational Trace</h3>
+            </div>
+            <div id="dsa-step-explanation" class="dsa-step-explanation font-mono"></div>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+  </div>
+
+  <!-- ======================================================================
+       MODAL DIALOGS (Stage 2 Player Management & Confirmation)
+       ====================================================================== -->
+
+  <!-- Modal 1: Add / Edit Player -->
+  <div id="modal-player-form" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-player-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="modal-player-title" class="modal-title">Register New Player</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <form id="form-player" class="modal-body" novalidate>
+        <div class="form-group">
+          <label for="input-player-id" class="form-label">
+            Player ID <span class="form-required">*</span>
+            <span class="form-hint font-mono">(Unique positive integer)</span>
+          </label>
+          <input type="number" id="input-player-id" class="form-input font-mono" min="1" max="99999" required placeholder="e.g. 150">
+        </div>
+
+        <div class="form-group">
+          <label for="input-player-name" class="form-label">
+            Player Handle / Name <span class="form-required">*</span>
+          </label>
+          <input type="text" id="input-player-name" class="form-input" maxlength="40" required placeholder="e.g. PhantomViper">
+        </div>
+
+        <div class="form-group">
+          <label for="input-player-level" class="form-label">
+            Tier / Level <span class="form-required">*</span>
+            <span class="form-hint font-mono">(1 – 999)</span>
+          </label>
+          <input type="number" id="input-player-level" class="form-input font-mono" min="1" max="999" value="1" required>
+        </div>
+
+        <div class="form-group">
+          <label for="select-player-team" class="form-label">Team Affiliation</label>
+          <select id="select-player-team" class="form-select">
+            <option value="NoTeam">👤 Solo (No Team)</option>
+            <option value="Warriors">⚔️ Warriors</option>
+            <option value="Knights">🛡️ Knights</option>
+            <option value="Dragons">🐉 Dragons</option>
+            <option value="KLH">🏛️ KLH</option>
+            <option value="CUSTOM">⚡ Custom Team...</option>
+          </select>
+          <input type="text" id="input-custom-team" class="form-input" style="display: none; margin-top: var(--space-2);" placeholder="Enter custom team name..." maxlength="30">
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn--secondary" data-modal-close>Cancel</button>
+          <button type="submit" id="btn-save-player" class="btn btn--primary">Save Player</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal 2: Player Details Profile -->
+  <div id="modal-player-details" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-details-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="modal-details-title" class="modal-title">Player Dossier</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="player-details-content">
+          <!-- Dynamically populated by GamePlayerManager -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 3: Confirm Delete -->
+  <div id="modal-confirm-delete" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-delete-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog--sm">
+      <div class="modal-header">
+        <h2 id="modal-delete-title" class="modal-title" style="color: var(--color-danger);">Confirm Roster Removal</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="delete-player-notice" style="font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.6;">
+          Are you sure you want to remove this player from the roster? This action is immediate.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>Cancel</button>
+        <button type="button" id="btn-confirm-delete-action" class="btn btn--danger">Remove Player</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 4: Confirm Reset Demo Data -->
+  <div id="modal-confirm-reset" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-reset-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog--sm">
+      <div class="modal-header">
+        <h2 id="modal-reset-title" class="modal-title" style="color: var(--color-warning);">Reset Roster to Seed Data</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.6;">
+          This will restore the <strong>53 authentic seed players</strong> from <code>original-source/players.txt</code> and discard any added or modified players in LocalStorage.
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>Cancel</button>
+        <button type="button" id="btn-confirm-reset-action" class="btn btn--warning">Reset Roster</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 5: Confirm LIFO Match Undo (Stage 4) -->
+  <div id="modal-confirm-undo" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-undo-title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog--sm">
+      <div class="modal-header">
+        <h2 id="modal-undo-title" class="modal-title" style="color: var(--color-secondary);">Confirm Match Reversal</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p id="undo-match-notice" style="font-size: var(--text-sm); color: var(--color-text-secondary); line-height: 1.6;">
+          <!-- Dynamically populated by GameHistoryManager -->
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>Cancel</button>
+        <button type="button" id="btn-confirm-undo-action" class="btn btn--primary">Confirm Undo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Match Details Dossier (Stage 4) -->
+  <div id="modal-match-details" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-match-dossier-title" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 id="modal-match-dossier-title" class="modal-title">Match Dossier</h2>
+        <button type="button" class="btn-modal-close" data-modal-close aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div id="match-details-content">
+          <!-- Dynamically populated by GameHistoryManager -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn--secondary" data-modal-close>Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container" role="region" aria-label="System notifications" aria-live="polite"></div>
+
+  <!-- Application Script Pipeline -->
+  <script src="js/seed-data.js"></script>
+  <script src="js/player-algorithms.js"></script>
+  <script src="js/player-data.js"></script>
+  <script src="js/match-queue.js"></script>
+  <script src="js/match-data.js"></script>
+  <script src="js/match-engine.js"></script>
+  <script src="js/match-undo.js"></script>
+  <script src="js/ui/toast.js"></script>
+  <script src="js/ui/modal.js"></script>
+  <script src="js/player-manager.js"></script>
+  <script src="js/leaderboard-manager.js"></script>
+  <script src="js/arena-manager.js"></script>
+  <script src="js/history-manager.js"></script>
+  <script src="js/dsa/dsa-manager.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
