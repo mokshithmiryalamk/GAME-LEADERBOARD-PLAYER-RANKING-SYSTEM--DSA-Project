@@ -43,6 +43,7 @@ const vm = require('vm');
 const assert = require('assert');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const LEGACY_DIR = path.join(ROOT_DIR, 'legacy');
 const ORIGINAL_DIR = path.join(ROOT_DIR, 'original-source');
 const PORTFOLIO_DIR = path.resolve(ROOT_DIR, '../../Portfolio_Website');
 
@@ -142,7 +143,7 @@ function createFullSandbox() {
   ];
 
   for (const scriptPath of scripts) {
-    const code = fs.readFileSync(path.join(ROOT_DIR, scriptPath), 'utf8');
+    const code = fs.readFileSync(path.join(LEGACY_DIR, scriptPath), 'utf8');
     vm.runInContext(code, sandbox);
   }
 
@@ -584,7 +585,7 @@ it('DSA Lab controls support forward, backward, reset, and dynamic Big-O narrati
 // 17. HTML DOM INTEGRITY: ZERO DUPLICATE IDS
 // -----------------------------------------------------------------------------
 it('HTML contains zero duplicate IDs across index.html', () => {
-  const htmlPath = path.join(ROOT_DIR, 'index.html');
+  const htmlPath = path.join(LEGACY_DIR, 'index.html');
   const html = fs.readFileSync(htmlPath, 'utf8');
 
   const idRegex = /\sid=["']([^"']+)["']/g;
@@ -608,7 +609,7 @@ it('HTML contains zero duplicate IDs across index.html', () => {
 // 18. HTML DOM INTEGRITY: ALL STAGE 4 ELEMENTS & MODALS EXIST
 // -----------------------------------------------------------------------------
 it('All Stage 4 history toolbars, timelines, tabs, and modals exist in index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
 
   const requiredIds = [
     'view-history',
@@ -648,7 +649,7 @@ it('All Stage 4 history toolbars, timelines, tabs, and modals exist in index.htm
 // 19. JAVASCRIPT SYNTAX VALIDITY ACROSS ALL MODULES
 // -----------------------------------------------------------------------------
 it('All 13 JavaScript files compile cleanly in Node VM without syntax errors', () => {
-  const jsDir = path.join(ROOT_DIR, 'js');
+  const jsDir = path.join(LEGACY_DIR, 'js');
   const jsFiles = [
     'seed-data.js',
     'player-algorithms.js',

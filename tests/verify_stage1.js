@@ -18,6 +18,7 @@ const vm = require('vm');
 const assert = require('assert');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const LEGACY_DIR = path.join(ROOT_DIR, 'legacy');
 const ORIGINAL_DIR = path.join(ROOT_DIR, 'original-source');
 const PORTFOLIO_DIR = path.resolve(ROOT_DIR, '../../Portfolio_Website');
 
@@ -101,17 +102,17 @@ it('Portfolio_Website remains completely untouched (4 root items)', () => {
 });
 
 it('All project development stays inside Game_Leaderboard directory', () => {
-  assert.ok(fs.existsSync(path.join(ROOT_DIR, 'index.html')), 'index.html must exist in project root');
-  assert.ok(fs.existsSync(path.join(ROOT_DIR, 'css', 'design-tokens.css')), 'design-tokens.css must exist');
-  assert.ok(fs.existsSync(path.join(ROOT_DIR, 'css', 'main.css')), 'main.css must exist');
-  assert.ok(fs.existsSync(path.join(ROOT_DIR, 'js', 'app.js')), 'app.js must exist');
+  assert.ok(fs.existsSync(path.join(LEGACY_DIR, 'index.html')), 'index.html must exist in legacy/');
+  assert.ok(fs.existsSync(path.join(LEGACY_DIR, 'css', 'design-tokens.css')), 'design-tokens.css must exist');
+  assert.ok(fs.existsSync(path.join(LEGACY_DIR, 'css', 'main.css')), 'main.css must exist');
+  assert.ok(fs.existsSync(path.join(LEGACY_DIR, 'js', 'app.js')), 'app.js must exist');
 });
 
 // -----------------------------------------------------------------------------
 // TEST 3: JAVASCRIPT SYNTAX & ARCHITECTURE INTEGRITY
 // -----------------------------------------------------------------------------
 it('js/app.js is syntactically valid and compiles cleanly in Node VM', () => {
-  const code = fs.readFileSync(path.join(ROOT_DIR, 'js', 'app.js'), 'utf8');
+  const code = fs.readFileSync(path.join(LEGACY_DIR, 'js', 'app.js'), 'utf8');
   assert.doesNotThrow(() => {
     new vm.Script(code, { filename: 'app.js' });
   }, 'Syntax error in js/app.js');
@@ -121,7 +122,7 @@ it('js/app.js is syntactically valid and compiles cleanly in Node VM', () => {
 // TEST 4: HTML DOM STRUCTURE & ID INTEGRITY
 // -----------------------------------------------------------------------------
 it('HTML contains zero duplicate IDs across index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const idRegex = /id=["']([^"']+)["']/g;
   const idSet = new Set();
   let match;
@@ -134,7 +135,7 @@ it('HTML contains zero duplicate IDs across index.html', () => {
 });
 
 it('All 6 primary functional views exist in index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const requiredViews = [
     'view-overview',
     'view-registry',
@@ -149,7 +150,7 @@ it('All 6 primary functional views exist in index.html', () => {
 });
 
 it('All 6 sidebar navigation targets exist and map to valid views', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const requiredNavs = [
     'nav-overview',
     'nav-registry',
@@ -164,7 +165,7 @@ it('All 6 sidebar navigation targets exist and map to valid views', () => {
 });
 
 it('Core layout and navigation controls exist in index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const requiredControls = [
     'app-sidebar',
     'nav-backdrop',
@@ -181,7 +182,7 @@ it('Core layout and navigation controls exist in index.html', () => {
 // TEST 5: DESIGN TOKENS & VISUAL IDENTITY
 // -----------------------------------------------------------------------------
 it('Design tokens define distinct Competitive Arcade Arena esports palette', () => {
-  const tokens = fs.readFileSync(path.join(ROOT_DIR, 'css', 'design-tokens.css'), 'utf8');
+  const tokens = fs.readFileSync(path.join(LEGACY_DIR, 'css', 'design-tokens.css'), 'utf8');
   assert.ok(tokens.includes('--color-bg-primary:    #0C0F12'), 'Primary background must be Deep Carbon #0C0F12');
   assert.ok(tokens.includes('--color-accent:         #B8F34B'), 'Primary accent must be Electric Lime #B8F34B');
   assert.ok(tokens.includes('--color-secondary:      #F15BB5'), 'Secondary accent must be Cyber Magenta #F15BB5');
@@ -193,7 +194,7 @@ it('Design tokens define distinct Competitive Arcade Arena esports palette', () 
 // TEST 6: ACCESSIBILITY & STAGE LABELS
 // -----------------------------------------------------------------------------
 it('Views clearly display stage roadmap status without fake dead feature buttons', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   assert.ok(html.includes('Stage 1: Foundation'), 'Stage 1 badge must be visible');
   assert.ok(html.includes('Stage 2'), 'Stage 2 notices must be visible');
   assert.ok(html.includes('Stage 3'), 'Stage 3 notices must be visible');
@@ -260,7 +261,7 @@ it('App coordinator handles view switching and mobile drawer state transitions c
     addEventListener: () => {}
   };
 
-  const code = fs.readFileSync(path.join(ROOT_DIR, 'js', 'app.js'), 'utf8');
+  const code = fs.readFileSync(path.join(LEGACY_DIR, 'js', 'app.js'), 'utf8');
   const context = {
     window: mockWindow,
     document: mockDocument,

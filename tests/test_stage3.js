@@ -45,6 +45,7 @@ const vm = require('vm');
 const assert = require('assert');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const LEGACY_DIR = path.join(ROOT_DIR, 'legacy');
 const ORIGINAL_DIR = path.join(ROOT_DIR, 'original-source');
 const PORTFOLIO_DIR = path.resolve(ROOT_DIR, '../../Portfolio_Website');
 
@@ -132,7 +133,7 @@ vm.createContext(sandbox);
 
 // Load modules in exact dependency sequence
 const loadModule = (file) => {
-  const code = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
+  const code = fs.readFileSync(path.join(LEGACY_DIR, file), 'utf8');
   vm.runInContext(code, sandbox);
 };
 
@@ -469,7 +470,7 @@ it('LocalStorage persistence cycle: Player registration survives simulated reloa
   freshStoreSandbox.GamePlayerAlgorithms = GamePlayerAlgorithms;
 
   vm.createContext(freshStoreSandbox);
-  vm.runInContext(fs.readFileSync(path.join(ROOT_DIR, 'js', 'player-data.js'), 'utf8'), freshStoreSandbox);
+  vm.runInContext(fs.readFileSync(path.join(LEGACY_DIR, 'js', 'player-data.js'), 'utf8'), freshStoreSandbox);
 
   const reloadedStore = freshStoreSandbox.GamePlayerData;
   const reloadedPlayer = reloadedStore.getById(555);
@@ -499,7 +500,7 @@ it('LocalStorage persistence cycle: Player registration survives simulated reloa
   storeCheckSandbox.GameSeedData = GameSeedData;
   storeCheckSandbox.GamePlayerAlgorithms = GamePlayerAlgorithms;
   vm.createContext(storeCheckSandbox);
-  vm.runInContext(fs.readFileSync(path.join(ROOT_DIR, 'js', 'player-data.js'), 'utf8'), storeCheckSandbox);
+  vm.runInContext(fs.readFileSync(path.join(LEGACY_DIR, 'js', 'player-data.js'), 'utf8'), storeCheckSandbox);
   assert.strictEqual(storeCheckSandbox.GamePlayerData.getById(555), null);
 });
 
@@ -526,7 +527,7 @@ it('Reset Demo Data restores authentic 53-player seed dataset and cleans lobby q
 // 6. HTML DOM INTEGRITY & JAVASCRIPT SYNTAX
 // -----------------------------------------------------------------------------
 it('HTML contains zero duplicate IDs across index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const idRegex = /id=["']([^"']+)["']/g;
   const idSet = new Set();
   let match;
@@ -539,7 +540,7 @@ it('HTML contains zero duplicate IDs across index.html', () => {
 });
 
 it('All Stage 3 Match Arena controls, queues, and scripts exist in index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
 
   // Lobby elements
   assert.ok(html.includes('id="arena-queue-count"'));
@@ -586,7 +587,7 @@ it('All JavaScript modules compile cleanly without syntax errors', () => {
   ];
 
   jsFiles.forEach(file => {
-    const code = fs.readFileSync(path.join(ROOT_DIR, file), 'utf8');
+    const code = fs.readFileSync(path.join(LEGACY_DIR, file), 'utf8');
     assert.doesNotThrow(() => {
       new vm.Script(code, { filename: file });
     }, `Syntax error in ${file}`);

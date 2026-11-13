@@ -27,6 +27,7 @@ const vm = require('vm');
 const assert = require('assert');
 
 const ROOT_DIR = path.resolve(__dirname, '..');
+const LEGACY_DIR = path.join(ROOT_DIR, 'legacy');
 const ORIGINAL_DIR = path.join(ROOT_DIR, 'original-source');
 const PORTFOLIO_DIR = path.resolve(ROOT_DIR, '../../Portfolio_Website');
 
@@ -91,7 +92,7 @@ it('Strict isolation: Portfolio_Website remains untouched', () => {
 // -----------------------------------------------------------------------------
 // 2. SEED DATA AUDIT & VALIDATION
 // -----------------------------------------------------------------------------
-const seedModuleCode = fs.readFileSync(path.join(ROOT_DIR, 'js', 'seed-data.js'), 'utf8');
+const seedModuleCode = fs.readFileSync(path.join(LEGACY_DIR, 'js', 'seed-data.js'), 'utf8');
 const seedSandbox = { window: {}, global: {} };
 vm.createContext(seedSandbox);
 vm.runInContext(seedModuleCode, seedSandbox);
@@ -121,7 +122,7 @@ it('Seed dataset extracts exactly 53 valid records from players.txt and document
 // -----------------------------------------------------------------------------
 // 3. ALGORITHMS ENGINE (GamePlayerAlgorithms)
 // -----------------------------------------------------------------------------
-const algModuleCode = fs.readFileSync(path.join(ROOT_DIR, 'js', 'player-algorithms.js'), 'utf8');
+const algModuleCode = fs.readFileSync(path.join(LEGACY_DIR, 'js', 'player-algorithms.js'), 'utf8');
 const algSandbox = { window: {}, global: {}, Date, Math };
 vm.createContext(algSandbox);
 vm.runInContext(algModuleCode, algSandbox);
@@ -226,7 +227,7 @@ it('QuickSort Leaderboard executes Lomuto partition descending with deterministi
 // -----------------------------------------------------------------------------
 // 4. REACTIVE PLAYER DATA STORE (GamePlayerData)
 // -----------------------------------------------------------------------------
-const dataModuleCode = fs.readFileSync(path.join(ROOT_DIR, 'js', 'player-data.js'), 'utf8');
+const dataModuleCode = fs.readFileSync(path.join(LEGACY_DIR, 'js', 'player-data.js'), 'utf8');
 
 // Mock localStorage and browser environment
 const mockStorage = new Map();
@@ -358,7 +359,7 @@ it('getMetrics() calculates accurate real-time telemetry', () => {
 // 5. DOM & HTML INTEGRITY
 // -----------------------------------------------------------------------------
 it('HTML contains zero duplicate IDs across index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
   const idRegex = /id=["']([^"']+)["']/g;
   const idSet = new Set();
   let match;
@@ -371,7 +372,7 @@ it('HTML contains zero duplicate IDs across index.html', () => {
 });
 
 it('All Stage 2 elements, toolbars, modals and scripts are present in index.html', () => {
-  const html = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
+  const html = fs.readFileSync(path.join(LEGACY_DIR, 'index.html'), 'utf8');
 
   // Registry controls
   assert.ok(html.includes('id="registry-search-input"'));
@@ -424,7 +425,7 @@ it('All JavaScript modules compile cleanly in Node VM without syntax errors', ()
   ];
 
   jsFiles.forEach(relPath => {
-    const code = fs.readFileSync(path.join(ROOT_DIR, relPath), 'utf8');
+    const code = fs.readFileSync(path.join(LEGACY_DIR, relPath), 'utf8');
     assert.doesNotThrow(() => {
       new vm.Script(code, { filename: relPath });
     }, `Syntax error in ${relPath}`);
