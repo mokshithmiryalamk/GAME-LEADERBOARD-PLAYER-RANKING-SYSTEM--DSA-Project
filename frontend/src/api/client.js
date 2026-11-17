@@ -4,7 +4,14 @@
  * Standardizes error parsing for RFC 7807 ProblemDetail payloads.
  */
 
-const API_BASE = (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL) || '/api';
+const getApiBase = () => {
+  const envUrl = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL;
+  if (!envUrl || envUrl.trim() === '') return '/api';
+  const cleanUrl = envUrl.trim().replace(/\/+$/, '');
+  return cleanUrl.endsWith('/api') ? cleanUrl : `${cleanUrl}/api`;
+};
+
+const API_BASE = getApiBase();
 
 /**
  * Handles JSON responses and parses RFC 7807 error details.
