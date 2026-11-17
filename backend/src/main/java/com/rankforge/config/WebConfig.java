@@ -15,7 +15,7 @@ import java.util.List;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:5173,http://localhost:4173,http://localhost:8080,http://127.0.0.1:5173,http://127.0.0.1:4173,http://127.0.0.1:3000,http://127.0.0.1:8080,http://127.0.0.1:5500,https://*.vercel.app}")
+    @Value("${cors.allowed-origins:http://localhost:3000,http://localhost:5173,http://localhost:4173,http://localhost:8080,http://127.0.0.1:5173,http://127.0.0.1:4173,http://127.0.0.1:3000,http://127.0.0.1:8080,http://127.0.0.1:5500,https://rankforge-dsa.vercel.app}")
     private String allowedOrigins;
 
     @Override
@@ -29,9 +29,9 @@ public class WebConfig implements WebMvcConfigurer {
                 }
             }
         }
+        // Always preserve local development origins
         if (!patterns.contains("http://localhost:*")) patterns.add("http://localhost:*");
         if (!patterns.contains("http://127.0.0.1:*")) patterns.add("http://127.0.0.1:*");
-        if (!patterns.contains("https://*.vercel.app")) patterns.add("https://*.vercel.app");
 
         registry.addMapping("/**")
                 .allowedOriginPatterns(patterns.toArray(new String[0]))
